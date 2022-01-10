@@ -1,4 +1,5 @@
 /** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
 function gainFromLevelUpgrade(X, Y, Z) {
 	return (1 * 1.6) * Math.pow(1.035, Y - 1) * ((Z + 5) / 6);
 }

@@ -1,5 +1,5 @@
+/** @param {import("../../.").NS} ns */
 /** @param {NS} ns **/
-
 
 export async function main(ns) {
 	async function workAssessment(target, threadsAvail) {
@@ -8,7 +8,7 @@ export async function main(ns) {
 		var test3 = ns.getHackTime(target)
 		if ((test1 != 0) && (test2 != Infinity) && (test3 != Infinity)) {
 			var nthreads2w = Math.ceil(((ns.getServerSecurityLevel(target) - ns.getServerMinSecurityLevel(target)) / .05))
-
+			
 			//The second variable here equals the amount of threads necessary to grow the money to it's maximum.
 			var TSMoneyratio = (ns.getServerMaxMoney(target) / ns.getServerMoneyAvailable(target));
 			if (TSMoneyratio == Infinity) {
@@ -73,10 +73,10 @@ export async function main(ns) {
 		return hostnames.indexOf(item) < 0;
 	}
 
-	ns.run('purchase-servers.ns')
+	ns.run('purchase-servers.js')
 	await ns.sleep(25)
 
-	// ns.run('hackknet.ns')
+	// ns.run('hackknet.js')
 	// await ns.sleep(25)
 
 	//populate initial hostnames array

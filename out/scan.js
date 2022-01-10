@@ -1,4 +1,5 @@
 /** @param {NS} ns **/
+/** @param {import("../.").NS} ns */
 let facServers = {
 
 	"CSEC": "yellow",
