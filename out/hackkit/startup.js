@@ -158,8 +158,8 @@ export async function main(ns) {
     await ns.sleep(10);
   }
 
-  workableHostnames.pop('home')
-  workableHostnames.unshift('home')
+  workableHostnames.pop("home");
+  workableHostnames.unshift("home");
   // move the hackkit to the workable servers
   await ns.write(fn, workableHostnames, "w");
   // figure out what the max number of threads we can run is
@@ -242,7 +242,11 @@ export async function main(ns) {
     }
 
     cycleCount = cycleCount + 1; // after 100 executes, spawn the script again
-    await ns.sleep(120000);
+    await ns.sleep(120000)
+    ns.run("/grind-hack-exp.js", 5, "foodnstuff");
+    while(ns.scriptRunning('/gring-hack-exp.js', 'home')){
+      await ns.sleep(1000)
+    } 
   }
 
   // Restart this script, spawning so we catch any changes
