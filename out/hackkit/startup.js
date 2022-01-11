@@ -158,6 +158,8 @@ export async function main(ns) {
     await ns.sleep(10);
   }
 
+  workableHostnames.pop('home')
+  workableHostnames.unshift('home')
   // move the hackkit to the workable servers
   await ns.write(fn, workableHostnames, "w");
   // figure out what the max number of threads we can run is
@@ -233,9 +235,9 @@ export async function main(ns) {
       var target = payoutDict[payoutSorted[i]]["hostname"];
       var result = ns.run("/hackkit/runner.js", 1, target);
       if (result != 0) {
-        ns.tprint("started runner for " + target);
+        ns.print("started runner for " + target);
       } else {
-        ns.tprint("failed to start runner for " + target);
+        ns.print("failed to start runner for " + target);
       }
     }
 
