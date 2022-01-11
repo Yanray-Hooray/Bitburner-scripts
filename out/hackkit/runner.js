@@ -31,12 +31,12 @@ export async function main(ns) {
           var n = 0;
         }
       } else {
-        var threadsAvail = Math.ceil(availableRam / scriptRam);
+        var threadsAvail = Math.floor(availableRam / scriptRam);
         var workToDo = count - i;
         if (threadsAvail > workToDo) {
           var scriptsToRun = workToDo;
         } else {
-          var scriptsToRun = threadsAvail - 1; // accounting for unround ram
+          var scriptsToRun = threadsAvail
         }
         ns.print(
           "Going to run " + scriptsToRun + " on the runner " + runners[n]
