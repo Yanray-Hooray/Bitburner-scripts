@@ -113,8 +113,17 @@ export async function main(ns) {
   }
 
   //This last variable is the amount of threads necessary to steal 80% of the server's money.
-  var nthreads2h = Math.ceil(0.8 / ns.hackAnalyze(target) - 1);
+  var nthreads2h = Math.ceil(0.8 / ns.hackAnalyze(target));
   var time2h = ns.getHackTime(target);
+  ns.tprint(
+    "target hackAnalyze currentMoney/maxMoney : " +
+      target +
+      " " +
+      ns.hackAnalyze(target) +
+      ns.getServerMoneyAvailable(target) +
+      "/" +
+      ns.getServerMaxMoney
+  );
   ns.print("nthreads2h = " + nthreads2h);
   ns.print("time2h = " + time2h);
   if (nthreads2h != 0) {
