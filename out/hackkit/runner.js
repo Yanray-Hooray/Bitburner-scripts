@@ -7,8 +7,8 @@ export async function main(ns) {
     var scriptRam = 1.75;
     var i = 0; // threads executed
     var n = 0; // runner number in array
-    
-	while (i < count) {
+
+    while (i < count) {
       ns.print("assessing target : " + runners[n]);
       if (runners[n] == "home") {
         var availableRam =
@@ -24,25 +24,26 @@ export async function main(ns) {
         n = n + 1;
         ns.print(runners[n] + " does not have enough RAM");
         if (n == runners.length) {
-          ns.tprint("resetting n as we didnt have enough ram for a job, and buying servers to future proof");
-		  ns.run("purchase-servers.js");
+          ns.tprint(
+            "resetting n as we didnt have enough ram for a job, and buying servers to future proof"
+          );
+          ns.run("purchase-servers.js");
           var n = 0;
         }
       } else {
         var threadsAvail = Math.ceil(availableRam / scriptRam);
-		var workToDo = count - i
-		if(threadsAvail > workToDo){
-			var scriptsToRun = workToDo
-		}
-		else {
-			var scriptsToRun = threadsAvail - 1 // accounting for unround ram
-		}
+        var workToDo = count - i;
+        if (threadsAvail > workToDo) {
+          var scriptsToRun = workToDo;
+        } else {
+          var scriptsToRun = threadsAvail - 1; // accounting for unround ram
+        }
         ns.print(
           "Going to run " + scriptsToRun + " on the runner " + runners[n]
         );
         var result = ns.exec(script, runners[n], scriptsToRun, target);
-        
-		if (result) {
+
+        if (result) {
           ns.print("Success");
           i = i + scriptsToRun;
         } else {

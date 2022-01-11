@@ -240,6 +240,7 @@ export async function main(ns) {
     }
 
     cycleCount = cycleCount + 1; // after 100 executes, spawn the script again
+    await ns.sleep(120000);
   }
 
   // Restart this script, spawning so we catch any changes
