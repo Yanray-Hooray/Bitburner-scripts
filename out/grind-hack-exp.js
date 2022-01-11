@@ -46,6 +46,6 @@ export async function main(ns) {
   var knownHosts = ns.read("/hackkit/known_hosts.txt").split(",");
   ns.print("Target = " + target);
   ns.print("knownHosts = " + knownHosts);
-
+  ns.tprint('starting exp grind')
   await loadBalanceWeaken(knownHosts, target)
 }
