@@ -24,7 +24,8 @@ export async function main(ns) {
         n = n + 1;
         ns.print(runners[n] + " does not have enough RAM");
         if (n == runners.length) {
-          ns.print("resetting n");
+          ns.tprint("resetting n as we didnt have enough ram for a job, and buying servers to future proof");
+		  ns.run("purchase-servers.js");
           var n = 0;
         }
       } else {

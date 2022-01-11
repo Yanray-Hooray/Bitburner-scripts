@@ -47,4 +47,7 @@ export async function main(ns) {
 			i++;
 		}
 	}
+	else{
+		ns.tprint('Not enough money to upgrade')
+	}
 }

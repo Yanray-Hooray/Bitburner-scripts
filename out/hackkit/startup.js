@@ -97,11 +97,11 @@ export async function main(ns) {
     return hostnames.indexOf(item) < 0;
   }
 
-  // ns.run('purchase-servers.js')
-  // await ns.sleep(25)
+  //   ns.run("purchase-servers.js");
+  //   await ns.sleep(25);
 
-  // ns.run('hackknet.js')
-  // await ns.sleep(25)
+  //   ns.run("hackknet.js");
+  //   await ns.sleep(25);
 
   //populate initial hostnames array
   var hostnames = ns.scan("home", true);
@@ -225,17 +225,24 @@ export async function main(ns) {
   // while (ns.scriptRunning('/hackkit/runner.js', 'home')) {
   // 	await ns.sleep(60000)
   // }
-  // Restart this script, spawning so we catch any changes
-  // ns.spawn('/hackkit/startup.js', 1)
 
   // smash as many threads as possible at all times
-  while (true)
+  var cycleCount = 0;
+  while (cycleCount < 100) {
     for (var i = 0; i < payoutSorted.length; i++) {
       var target = payoutDict[payoutSorted[i]]["hostname"];
       var result = ns.run("/hackkit/runner.js", 1, target);
-	  if (result != 0){
-		  ns.tprint('started runner for ' + target)
-	  }
-      await ns.sleep(25);
+      if (result != 0) {
+        ns.tprint("started runner for " + target);
+      } else {
+        ns.tprint("failed to start runner for " + target);
+      }
     }
+
+    cycleCount = cycleCount + 1; // after 100 executes, spawn the script again
+  }
+
+  // Restart this script, spawning so we catch any changes
+  ns.tprint("spawning new instance");
+  ns.spawn("/hackkit/startup.js", 1);
 }
