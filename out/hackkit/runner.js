@@ -5,9 +5,10 @@ export async function main(ns) {
   ns.disableLog("ALL");
   async function loadBalanceExec(script, runners, target, count) {
     var scriptRam = 1.75;
-    var i = 0;
-    var n = 0;
-    while (i < count) {
+    var i = 0; // threads executed
+    var n = 0; // runner number in array
+    
+	while (i < count) {
       ns.print("assessing target : " + runners[n]);
       if (runners[n] == "home") {
         var availableRam =
@@ -27,12 +28,20 @@ export async function main(ns) {
           var n = 0;
         }
       } else {
-        var scriptsToRun = Math.ceil(availableRam / scriptRam - 1);
+        var threadsAvail = Math.ceil(availableRam / scriptRam);
+		var workToDo = count - i
+		if(threadsAvail > workToDo){
+			var scriptsToRun = workToDo
+		}
+		else {
+			var scriptsToRun = threadsAvail - 1 // accounting for unround ram
+		}
         ns.print(
           "Going to run " + scriptsToRun + " on the runner " + runners[n]
         );
         var result = ns.exec(script, runners[n], scriptsToRun, target);
-        if (result) {
+        
+		if (result) {
           ns.print("Success");
           i = i + scriptsToRun;
         } else {
@@ -115,15 +124,6 @@ export async function main(ns) {
   //This last variable is the amount of threads necessary to steal 80% of the server's money.
   var nthreads2h = Math.ceil(0.8 / ns.hackAnalyze(target));
   var time2h = ns.getHackTime(target);
-  ns.tprint(
-    "target hackAnalyze currentMoney/maxMoney : " +
-      target +
-      " " +
-      ns.hackAnalyze(target) +
-      ns.getServerMoneyAvailable(target) +
-      "/" +
-      ns.getServerMaxMoney
-  );
   ns.print("nthreads2h = " + nthreads2h);
   ns.print("time2h = " + time2h);
   if (nthreads2h != 0) {
@@ -138,7 +138,8 @@ export async function main(ns) {
       "error : " +
         target +
         " out of money, running a grow and will wait " +
-        ns.getGrowTime(target)
+        ns.getGrowTime(target) / 60 +
+        " minutes."
     );
     await ns.grow(target);
   }
