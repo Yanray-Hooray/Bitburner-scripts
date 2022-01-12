@@ -253,8 +253,8 @@ export async function main(ns) {
   ns.tprint("starting grind");
   // grind exp in the down time
   var grindCount = 0;
-  while (grindCount < 100) {
-    var result = ns.run("/grind-hack-exp.js", 1, "foodnstuff");
+  while (grindCount < 100000) {
+    var result = ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
     if (result != 0) {
       ns.print("started grinder");
       var progress = 1;

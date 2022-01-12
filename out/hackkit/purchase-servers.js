@@ -1,5 +1,5 @@
 /** @param {NS} ns **/
-/** @param {import("../.").NS} ns */
+/** @param {import("../../.").NS} ns */
 export async function main(ns) {
   var i = 0;
   // power is used to calculate how much ram to buy.

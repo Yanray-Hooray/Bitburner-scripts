@@ -27,7 +27,7 @@ export async function main(ns) {
           ns.tprint(
             "resetting n as we didnt have enough ram for a job, and buying servers to future proof"
           );
-          ns.run("purchase-servers.js");
+          ns.run("/hackkit/purchase-servers.js");
           var n = 0;
         }
       } else {
@@ -36,7 +36,7 @@ export async function main(ns) {
         if (threadsAvail > workToDo) {
           var scriptsToRun = workToDo;
         } else {
-          var scriptsToRun = threadsAvail
+          var scriptsToRun = threadsAvail;
         }
         ns.print(
           "Going to run " + scriptsToRun + " on the runner " + runners[n]
