@@ -38,7 +38,7 @@ export async function main(ns) {
           );
         }
       }
-      await ns.sleep(1);
+      await ns.sleep(10000);
     }
   }
 
@@ -48,4 +48,5 @@ export async function main(ns) {
   ns.print("knownHosts = " + knownHosts);
   ns.print('starting exp grind')
   await loadBalanceWeaken(knownHosts, target)
+  await ns.sleep(ns.getWeakenTime(target))
 }

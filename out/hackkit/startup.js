@@ -244,27 +244,28 @@ export async function main(ns) {
       }
     }
     cycleCount = cycleCount + progress; // after 100 executes, spawn the script again
-    await ns.sleep(1000);
+    ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
+    await ns.sleep(25);
   }
 
-  while (ns.scriptRunning("/hackkit/runner.js", "home")) {
-    await ns.sleep(1000);
-  }
-  ns.tprint("starting grind");
-  // grind exp in the down time
-  var grindCount = 0;
-  while (grindCount < 100000) {
-    var result = ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
-    if (result != 0) {
-      ns.print("started grinder");
-      var progress = 1;
-    } else {
-      ns.print("failed to start grinder");
-      var progress = 0;
-    }
-    grindCount = grindCount + progress;
-    await ns.sleep(1000);
-  }
+  // while (ns.scriptRunning("/hackkit/runner.js", "home")) {
+  //   await ns.sleep(1000);
+  // }
+  // ns.tprint("starting grind");
+  // // grind exp in the down time
+  // var grindCount = 0;
+  // while (grindCount < 10000) {
+  //   var result = ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
+  //   if (result != 0) {
+  //     ns.print("started grinder");
+  //     var progress = 1;
+  //   } else {
+  //     ns.print("failed to start grinder");
+  //     var progress = 0;
+  //   }
+  //   grindCount = grindCount + progress;
+  //   await ns.sleep(1000);
+  // }
 
   // Restart this script, spawning so we catch any changes
   ns.tprint("spawning new instance");
