@@ -13,29 +13,31 @@ export async function main(ns) {
       if (availableRam < scriptRam) {
         ns.print(runners[n] + " does not have enough RAM");
       } else {
-        var threadsAvail = Math.floor(availableRam / scriptRam);
-        ns.print(
-          "Going to run " + threadsAvail + " on the runner " + runners[n]
-        );
-        var result = ns.exec(
-          "/hackkit/weaken.js",
-          runners[n],
-          threadsAvail,
-          target
-        );
-
-        if (result) {
-          ns.print("Success");
-        } else {
-          ns.tprint(
-            "Error : " +
-              runners[n] +
-              " failed to run " +
-              threadsAvail +
-              " threads of /hackkit/weaken.js targetting " +
-              target +
-              " for some reason"
+        var threadsAvail = Math.floor((availableRam / scriptRam) * 0.8);
+        if (threadsAvail != 0) {
+          ns.print(
+            "Going to run " + threadsAvail + " on the runner " + runners[n]
           );
+          var result = ns.exec(
+            "/hackkit/weaken.js",
+            runners[n],
+            threadsAvail,
+            target
+          );
+
+          if (result) {
+            ns.print("Success");
+          } else {
+            ns.tprint(
+              "Error : " +
+                runners[n] +
+                " failed to run " +
+                threadsAvail +
+                " threads of /hackkit/weaken.js targetting " +
+                target +
+                " for some reason"
+            );
+          }
         }
       }
       await ns.sleep(10000);
@@ -46,7 +48,7 @@ export async function main(ns) {
   var knownHosts = ns.read("/hackkit/known_hosts.txt").split(",");
   ns.print("Target = " + target);
   ns.print("knownHosts = " + knownHosts);
-  ns.print('starting exp grind')
-  await loadBalanceWeaken(knownHosts, target)
-  await ns.sleep(ns.getWeakenTime(target))
+  ns.print("starting exp grind");
+  await loadBalanceWeaken(knownHosts, target);
+  await ns.sleep(ns.getWeakenTime(target));
 }
