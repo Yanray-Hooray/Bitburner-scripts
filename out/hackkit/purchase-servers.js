@@ -18,9 +18,11 @@ export async function main(ns) {
 
   // You have to subtract 1 from the power since the last value checked in the while loop was too large
   power--;
-
   // Sets the amount of ram to buy
   var GB = Math.pow(2, power);
+  if (GB > ns.getPurchasedServerMaxRam()) {
+    GB = ns.getPurchasedServerMaxRam();
+  }
 
   if (GB < 64) {
     ns.print("Not enough money to be worth it");
@@ -32,6 +34,7 @@ export async function main(ns) {
   var servCount = 0;
   if (servers.length == 0) {
     ns.purchaseServer("initServ", 2);
+    var servers = ns.getPurchasedServers(true);
   }
 
   if (GB > ns.getServerMaxRam(servers[0])) {

@@ -13,7 +13,7 @@ export async function main(ns) {
       if (availableRam < scriptRam) {
         ns.print(runners[n] + " does not have enough RAM");
       } else {
-        var threadsAvail = Math.floor((availableRam / scriptRam) * 0.5);
+        var threadsAvail = Math.floor((availableRam / scriptRam) * 0.9); //change to match desired output
         if (threadsAvail != 0) {
           ns.print(
             "Going to run " + threadsAvail + " on the runner " + runners[n]
