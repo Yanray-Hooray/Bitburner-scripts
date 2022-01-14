@@ -228,25 +228,26 @@ export async function main(ns) {
   // 	await ns.sleep(60000)
   // }
 
-  ns.tprint("starting hack");
+  ns.print("starting hack");
   // smash as many threads as possible at hacktime
-  var cycleCount = 0;
-  while (cycleCount < 100) {
+  // var cycleCount = 0;
+  // while (cycleCount < 100) {
     for (var i = 0; i < payoutSorted.length; i++) {
       var target = payoutDict[payoutSorted[i]]["hostname"];
       var result = ns.run("/hackkit/runner.js", 1, target);
       if (result != 0) {
         ns.print("started runner for " + target);
-        var progress = 1;
+        // var progress = 1;
       } else {
         ns.print("failed to start runner for " + target);
-        var progress = 0;
+        // var progress = 0;
       }
     }
-    cycleCount = cycleCount + progress; // after 100 executes, spawn the script again
+    // cycleCount = cycleCount + progress; // after 100 executes, spawn the script again
+    ns.print("starting grind");
     ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
-    await ns.sleep(25);
-  }
+    // await ns.sleep(25);
+  // }
 
   // while (ns.scriptRunning("/hackkit/runner.js", "home")) {
   //   await ns.sleep(1000);

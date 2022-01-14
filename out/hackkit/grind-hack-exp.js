@@ -13,7 +13,7 @@ export async function main(ns) {
       if (availableRam < scriptRam) {
         ns.print(runners[n] + " does not have enough RAM");
       } else {
-        var threadsAvail = Math.floor((availableRam / scriptRam) * 0.8);
+        var threadsAvail = Math.floor((availableRam / scriptRam) * 0.5);
         if (threadsAvail != 0) {
           ns.print(
             "Going to run " + threadsAvail + " on the runner " + runners[n]
@@ -28,7 +28,7 @@ export async function main(ns) {
           if (result) {
             ns.print("Success");
           } else {
-            ns.tprint(
+            ns.print(
               "Error : " +
                 runners[n] +
                 " failed to run " +
@@ -40,7 +40,7 @@ export async function main(ns) {
           }
         }
       }
-      await ns.sleep(10000);
+      await ns.sleep(25);
     }
   }
 

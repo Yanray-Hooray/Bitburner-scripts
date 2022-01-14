@@ -24,10 +24,14 @@ export async function main(ns) {
         n = n + 1;
         ns.print(runners[n] + " does not have enough RAM");
         if (n == runners.length) {
-          ns.tprint(
+          ns.print(
             "resetting n as we didnt have enough ram for a job, and buying servers to future proof"
           );
-          ns.run("/hackkit/purchase-servers.js");
+          if (ns.scriptRunning("/hackkit/grind-hack-exp.js", "home")) {
+            await ns.sleep(10000);
+          } else {
+            ns.run("/hackkit/purchase-servers.js");
+          }
           var n = 0;
         }
       } else {

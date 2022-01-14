@@ -23,13 +23,16 @@ export async function main(ns) {
   var GB = Math.pow(2, power);
 
   if (GB < 64) {
-    ns.tprint("Not enough money to be worth it");
+    ns.print("Not enough money to be worth it");
     ns.exit;
   }
 
   // Sets an array of your current servers. It's empty if you don't own any
   var servers = ns.getPurchasedServers(true);
   var servCount = 0;
+  if (servers.length == 0) {
+    ns.purchaseServer("initServ", 2);
+  }
 
   if (GB > ns.getServerMaxRam(servers[0])) {
     ns.tprint(
@@ -47,6 +50,6 @@ export async function main(ns) {
       i++;
     }
   } else {
-    ns.tprint("Not enough money to upgrade");
+    ns.print("Not enough money to upgrade");
   }
 }
