@@ -97,12 +97,6 @@ export async function main(ns) {
     return hostnames.indexOf(item) < 0;
   }
 
-  //   ns.run("purchase-servers.js");
-  //   await ns.sleep(25);
-
-  //   ns.run("hackknet.js");
-  //   await ns.sleep(25);
-
   //populate initial hostnames array
   var hostnames = ns.scan("home", true);
 
@@ -208,67 +202,21 @@ export async function main(ns) {
   ns.print("Total Available Threads = " + totalAvailableThreads);
   ns.print("Payout Efficiency Sorted = " + payoutSorted);
 
-  // start jobs based on payout, and if we have enough threads
-  // for (var i = 0; i < payoutSorted.length; i++) {
-  // 	var target = payoutDict[payoutSorted[i]]['hostname']
-  // 	var threads = payoutDict[payoutSorted[i]]['threads']
-
-  // 	ns.print('Total threads / this jobs threads ' + totalAvailableThreads + '/' + threads)
-  // 	// ns.print('assessing if we have enough threads to work on = ' + target)
-
-  // 	if (totalAvailableThreads > threads) {
-  // 		var totalAvailableThreads = totalAvailableThreads - threads
-  // 		ns.print('found that ' + target + ' is a good target, left over threads = ' + totalAvailableThreads)
-  // 		ns.run('/hackkit/runner.js', 1, target)
-  // 		await ns.sleep(25)
-  // 	}
-  // }
-  // ns.print('waiting for runners to finish')
-  // while (ns.scriptRunning('/hackkit/runner.js', 'home')) {
-  // 	await ns.sleep(60000)
-  // }
-
   ns.print("starting hack");
   // smash as many threads as possible at hacktime
-  // var cycleCount = 0;
-  // while (cycleCount < 100) {
     for (var i = 0; i < payoutSorted.length; i++) {
       var target = payoutDict[payoutSorted[i]]["hostname"];
       var result = ns.run("/hackkit/runner.js", 1, target);
       if (result != 0) {
         ns.print("started runner for " + target);
-        // var progress = 1;
       } else {
         ns.print("failed to start runner for " + target);
-        // var progress = 0;
       }
     }
-    // cycleCount = cycleCount + progress; // after 100 executes, spawn the script again
     ns.print("starting grind");
     ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
-    // await ns.sleep(25);
-  // }
-
-  // while (ns.scriptRunning("/hackkit/runner.js", "home")) {
-  //   await ns.sleep(1000);
-  // }
-  // ns.tprint("starting grind");
-  // // grind exp in the down time
-  // var grindCount = 0;
-  // while (grindCount < 10000) {
-  //   var result = ns.run("/hackkit/grind-hack-exp.js", 1, "foodnstuff");
-  //   if (result != 0) {
-  //     ns.print("started grinder");
-  //     var progress = 1;
-  //   } else {
-  //     ns.print("failed to start grinder");
-  //     var progress = 0;
-  //   }
-  //   grindCount = grindCount + progress;
-  //   await ns.sleep(1000);
-  // }
 
   // Restart this script, spawning so we catch any changes
-  ns.tprint("spawning new instance");
+  ns.print("spawning new instance");
   ns.spawn("/hackkit/startup.js", 1);
 }

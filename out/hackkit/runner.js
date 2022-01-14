@@ -3,12 +3,13 @@
 
 export async function main(ns) {
   ns.disableLog("ALL");
-  async function loadBalanceExec(script, runners, target, count) {
+  async function loadBalanceExec(script, target, count) {
     var scriptRam = 1.75;
     var i = 0; // threads executed
     var n = 0; // runner number in array
 
     while (i < count) {
+      var runners = ns.read("/hackkit/known_hosts.txt").split(",");
       ns.print("assessing target : " + runners[n]);
       if (runners[n] == "home") {
         var availableRam =
@@ -69,9 +70,7 @@ export async function main(ns) {
   }
 
   var target = ns.args[0];
-  var knownHosts = ns.read("/hackkit/known_hosts.txt").split(",");
   ns.print("Target = " + target);
-  ns.print("knownHosts = " + knownHosts);
 
   //This variable equals the amount of threads necessary to weaken a server to it's minimum security level.
   var nthreads2w = Math.ceil(
@@ -84,7 +83,7 @@ export async function main(ns) {
   ns.print("time2w = " + time2w);
   if (nthreads2w != 0) {
     ns.print("waiting weaken");
-    await loadBalanceExec("hackkit/weaken.js", knownHosts, target, nthreads2w);
+    await loadBalanceExec("hackkit/weaken.js", target, nthreads2w);
     await ns.sleep(time2w);
   }
 
@@ -109,7 +108,7 @@ export async function main(ns) {
   ns.print("time2g = " + time2g);
   if (nthreads2g != 0) {
     ns.print("waiting grow");
-    await loadBalanceExec("hackkit/grow.js", knownHosts, target, nthreads2g);
+    await loadBalanceExec("hackkit/grow.js", target, nthreads2g);
     await ns.sleep(time2g);
   }
 
@@ -123,7 +122,7 @@ export async function main(ns) {
   ns.print("time2w = " + time2w);
   if (nthreads2w2 != 0) {
     ns.print("waiting weaken");
-    await loadBalanceExec("hackkit/weaken.js", knownHosts, target, nthreads2w2);
+    await loadBalanceExec("hackkit/weaken.js", target, nthreads2w2);
     await ns.sleep(time2w);
   }
 
@@ -134,7 +133,7 @@ export async function main(ns) {
   ns.print("time2h = " + time2h);
   if (nthreads2h != 0) {
     ns.print("waiting hack");
-    await loadBalanceExec("hackkit/hack.js", knownHosts, target, nthreads2h);
+    await loadBalanceExec("hackkit/hack.js", target, nthreads2h);
     await ns.sleep(time2h);
   }
 

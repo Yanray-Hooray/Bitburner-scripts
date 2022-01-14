@@ -40,6 +40,7 @@ export async function main(ns) {
     );
     // Deletes your old servers
     while (servCount < servers.length) {
+      ns.killall(servers[servCount]);
       ns.deleteServer(servers[servCount]);
       servCount++;
     }
